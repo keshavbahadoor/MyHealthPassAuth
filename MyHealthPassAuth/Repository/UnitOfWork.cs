@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyHealthPassAuth.Entities;
 using MyHealthPassAuth.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,16 @@ namespace MyHealthPassAuth.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
+        /// <summary>
+        /// Reference to database context 
+        /// </summary>
         private readonly MainDbContext _dbContext;
+
+        /// <summary>
+        /// User repository 
+        /// </summary>
+        public IRepository<User> UserRepository =>
+            new GenericRepository<User>(_dbContext); 
          
         /// <summary>
         /// Accepts an external database context 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyHealthPassAuth.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace MyHealthPassAuth.Repository.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        //IRepository<Restaurant> RestaurantRepository { get; }
+        IRepository<User> UserRepository { get; }
 
         /// <summary>
         /// Saves all changes to persistence 
