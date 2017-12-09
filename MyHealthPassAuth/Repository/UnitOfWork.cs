@@ -23,6 +23,9 @@ namespace MyHealthPassAuth.Repository
         public IRepository<Location> LocationRepository =>
             new GenericRepository<Location>(_dbContext);
 
+        public IRepository<AuthenticationLog> AuthLogRepository =>
+            new GenericRepository<AuthenticationLog>(_dbContext);
+
         # endregion
         /// <summary>
         /// Accepts an external database context 
