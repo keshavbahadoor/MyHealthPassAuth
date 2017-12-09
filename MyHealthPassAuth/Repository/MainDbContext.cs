@@ -14,6 +14,11 @@ namespace MyHealthPassAuth.Repository
         public virtual DbSet<User> Users { get; set; }
 
         /// <summary>
+        /// Represents collection of Location entities
+        /// </summary>
+        public virtual DbSet<Location> Locations { get; set; }
+
+        /// <summary>
         /// Constructs a new context instance using the given options object.
         /// Multiple databases can be supported given the configurations passed 
         /// in the options object. 

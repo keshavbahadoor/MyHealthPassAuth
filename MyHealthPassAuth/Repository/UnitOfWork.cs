@@ -15,12 +15,15 @@ namespace MyHealthPassAuth.Repository
         /// </summary>
         private readonly MainDbContext _dbContext;
 
-        /// <summary>
-        /// User repository 
-        /// </summary>
+        # region Repositories
+
         public IRepository<User> UserRepository =>
-            new GenericRepository<User>(_dbContext); 
-         
+            new GenericRepository<User>(_dbContext);
+
+        public IRepository<Location> LocationRepository =>
+            new GenericRepository<Location>(_dbContext);
+
+        # endregion
         /// <summary>
         /// Accepts an external database context 
         /// </summary>

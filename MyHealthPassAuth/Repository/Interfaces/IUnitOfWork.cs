@@ -9,6 +9,8 @@ namespace MyHealthPassAuth.Repository.Interfaces
     {
         IRepository<User> UserRepository { get; }
 
+        IRepository<Location> LocationRepository { get; }
+
         /// <summary>
         /// Saves all changes to persistence 
         /// </summary>

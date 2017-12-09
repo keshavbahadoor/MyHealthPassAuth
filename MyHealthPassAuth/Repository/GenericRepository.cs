@@ -40,7 +40,7 @@ namespace MyHealthPassAuth.Repository
         /// <param name="entity"></param>
         public void Add(T entity)
         {
-            _dbSet.Add(entity);
+            _dbSet.Add(entity);            
         }
     }
 }
