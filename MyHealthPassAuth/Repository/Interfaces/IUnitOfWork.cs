@@ -13,6 +13,8 @@ namespace MyHealthPassAuth.Repository.Interfaces
 
         IRepository<AuthenticationLog> AuthLogRepository { get; }
 
+        IRepository<AuthorizationConfig> AuthConfigRepository { get; }
+
         /// <summary>
         /// Saves all changes to persistence 
         /// </summary>

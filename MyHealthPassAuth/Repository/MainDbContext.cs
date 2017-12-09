@@ -24,6 +24,11 @@ namespace MyHealthPassAuth.Repository
         public virtual DbSet<AuthenticationLog> AuthenticationLogs { get; set; }
 
         /// <summary>
+        /// Represents collection of Authorization configs for the system 
+        /// </summary>
+        public virtual DbSet<AuthorizationConfig> AuthorizationConfig { get; set; }
+
+        /// <summary>
         /// Constructs a new context instance using the given options object.
         /// Multiple databases can be supported given the configurations passed 
         /// in the options object. 
