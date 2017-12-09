@@ -8,27 +8,14 @@ using System.Linq;
 namespace MyHealthPassAuthTest
 {
     [TestClass]
-    public class AuthenticationLogRepositoryTest
-    {
-        private DbContextOptions<MainDbContext> inMemoryOptions;
-        private MainDbContext testDbContext;
-
+    public class AuthenticationLogRepositoryTest : AbstractRepositoryTest
+    { 
         [TestInitialize]
-        public void Initialize()
+        public void TestInitialize()
         {
-            this.inMemoryOptions = new DbContextOptionsBuilder<MainDbContext>()
-                .UseInMemoryDatabase(databaseName: "in_memory_db")
-                .Options;
-
-            testDbContext = new MainDbContext(inMemoryOptions);
-            testDbContext.Database.EnsureDeleted();
+            Initialize(); 
         }
-
-        [TestCleanup]
-        public void TearDown()
-        {
-
-        }
+         
 
         [TestMethod]
         public void TestAuthLogInsert()
