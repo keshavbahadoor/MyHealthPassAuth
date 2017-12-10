@@ -102,5 +102,35 @@ namespace MyHealthPassAuth.Services
             }
         }
 
+        /// <summary>
+        /// Creates an auth log entry. 
+        /// TODO : can be done asynchronously 
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="request"></param>
+        /// <param name="userAgent"></param>
+        public void AddAuthenticationLog(string ipAddress, string request, string userAgent)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                _dbUnitOfWork.AuthLogRepository.Add(new AuthenticationLog
+                {
+                    IpAddress = ipAddress,
+                    RequestData = request,
+                    UserAgent = userAgent,
+                    InsertDate = DateTime.Now
+                });
+                _dbUnitOfWork.SaveChanges(); 
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.              
+            }
+        }
+
     }
 }
