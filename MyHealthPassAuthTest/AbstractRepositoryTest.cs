@@ -36,5 +36,13 @@ namespace MyHealthPassAuthTest
             testDbContext.Database.EnsureDeleted();
         }
 
+        /// <summary>
+        /// Deletes database 
+        /// </summary>
+        protected void TearDown()
+        {
+            testDbContext.Database.EnsureDeleted();
+        }
+
     }
 }
