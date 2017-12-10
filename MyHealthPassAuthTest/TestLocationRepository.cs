@@ -19,7 +19,7 @@ namespace MyHealthPassAuthTest
         [TestMethod]
         public void TestLocationInsert()
         {
-            AddLocation(testDbContext, 1, "Trinidad", "Chaguanas");
+            TestUtils.AddLocation(testDbContext, 1, "Trinidad", "Chaguanas");
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -33,7 +33,7 @@ namespace MyHealthPassAuthTest
         [TestMethod]
         public void TestLocationUpdate()
         {
-            AddLocation(testDbContext, 1, "Trinidad", "Chaguanas");
+            TestUtils.AddLocation(testDbContext, 1, "Trinidad", "Chaguanas");
 
             var unitOfWork = new UnitOfWork(testDbContext);
             var location = unitOfWork.LocationRepository.Entities
@@ -52,21 +52,7 @@ namespace MyHealthPassAuthTest
             }
         }
 
-        /// <summary>
-        /// Adds a specified location to the database using the given database context. 
-        /// Data is committed 
-        /// </summary>
-        private void AddLocation(MainDbContext context, int id, string country, string region)
-        {
-            var unitOfWork = new UnitOfWork(context);
-            unitOfWork.LocationRepository.Add(new Location
-            {
-                LocationID = id,
-                Country = country,
-                Region = region
-            });
-            unitOfWork.SaveChanges();
-        }
+       
     }
      
 }

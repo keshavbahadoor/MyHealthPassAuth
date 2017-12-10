@@ -18,8 +18,8 @@ namespace MyHealthPassAuthTest
 
         [TestMethod]
         public void TestUserInsert()
-        {                          
-            AddUserToRepository(testDbContext,
+        {
+            TestUtils.AddUserToRepository(testDbContext,
                 1,
                 "test.user",
                 "123456",
@@ -42,7 +42,7 @@ namespace MyHealthPassAuthTest
         [TestMethod]
         public void TestUserUpdate()
         {
-            AddUserToRepository(testDbContext,
+            TestUtils.AddUserToRepository(testDbContext,
                 1,
                 "test.user",
                 "123456",
@@ -70,32 +70,7 @@ namespace MyHealthPassAuthTest
             }
         }
 
-        /// <summary>
-        /// Adds a specified user to the database using the given database context. 
-        /// Data is committed 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="id"></param>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="failedAttempts"></param>
-        /// <param name="locationid"></param>
-        /// <param name="failedLoginDate"></param>
-        private void AddUserToRepository(MainDbContext context, int id, string username, 
-            string password, int failedAttempts, int locationid, DateTime failedLoginDate)
-        {
-            var unitOfWork = new UnitOfWork(context);
-            unitOfWork.UserRepository.Add(new User
-            {
-                UserID = id,
-                Username = username,
-                FailedLoginAttempts = failedAttempts,
-                FailedLoginDateTime = failedLoginDate,
-                LocationID = locationid,
-                Password = password
-            });
-            unitOfWork.SaveChanges();
-        }
+        
          
     }
 }

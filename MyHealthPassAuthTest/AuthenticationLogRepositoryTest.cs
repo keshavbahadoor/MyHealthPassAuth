@@ -20,7 +20,7 @@ namespace MyHealthPassAuthTest
         [TestMethod]
         public void TestAuthLogInsert()
         {
-            AddAuthenticationLog(testDbContext,
+            TestUtils.AddAuthenticationLog(testDbContext,
                 1,
                 "192.161.1.1",
                 "logincall?username=something",
@@ -42,7 +42,7 @@ namespace MyHealthPassAuthTest
         [TestMethod]
         public void TestLocationUpdate()
         {
-            AddAuthenticationLog(testDbContext,
+            TestUtils.AddAuthenticationLog(testDbContext,
                 1,
                 "192.161.1.1",
                 "logincall?username=something",
@@ -67,22 +67,6 @@ namespace MyHealthPassAuthTest
             }
         }
 
-        /// <summary>
-        /// Adds a specified location to the database using the given database context. 
-        /// Data is committed 
-        /// </summary>
-        private void AddAuthenticationLog(MainDbContext context, int id, string ipAddress, string requestdata, string useragent, DateTime insertDate)
-        {
-            var unitOfWork = new UnitOfWork(context);
-            unitOfWork.AuthLogRepository.Add(new AuthenticationLog
-            {
-                AuthenticationLogID = id, 
-                IpAddress = ipAddress, 
-                RequestData = requestdata, 
-                UserAgent = useragent,
-                InsertDate = insertDate
-            });
-            unitOfWork.SaveChanges();
-        }
+        
     }
 }
