@@ -59,7 +59,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
                     };
                 }
 
-                return this.ApplyRuleHook(username, password, configs);
+                return this.EvaluateRuleHook(username, password, configs);
             }
             catch(Exception ex)
             {
@@ -80,6 +80,6 @@ namespace MyHealthPassAuth.RuleEngine.Rules
         /// <param name="password"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        public abstract Message ApplyRuleHook(string username, string password, AuthorizationConfig config);
+        public abstract Message EvaluateRuleHook(string username, string password, AuthorizationConfig config);
     }
 }
