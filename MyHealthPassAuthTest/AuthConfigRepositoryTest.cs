@@ -51,7 +51,7 @@ namespace MyHealthPassAuthTest
 
             authConfig.BruteForceBlockAttempts = 20;
             authConfig.BruteForceIdentificationSeconds = 1500;
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -112,7 +112,7 @@ namespace MyHealthPassAuthTest
                 BruteForceBlockSeconds = bruteForceBlockSec,
                 LocationID = locationid 
             });
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
         }
 
     }

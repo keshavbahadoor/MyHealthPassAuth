@@ -56,7 +56,7 @@ namespace MyHealthPassAuthTest
 
             user.Username = "updated.username";
             user.Password = "Password123#";
-            unitOfWork.Commit();              
+            unitOfWork.SaveChanges();              
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -94,7 +94,7 @@ namespace MyHealthPassAuthTest
                 LocationID = locationid,
                 Password = password
             });
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
         }
          
     }

@@ -18,7 +18,7 @@ namespace MyHealthPassAuth.Repository.Interfaces
         /// <summary>
         /// Saves all changes to persistence 
         /// </summary>
-        void Commit();
+        void SaveChanges();
 
         /// <summary>
         /// Discard all changes that has not been committed 

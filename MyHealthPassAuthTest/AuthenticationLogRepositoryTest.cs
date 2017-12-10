@@ -54,7 +54,7 @@ namespace MyHealthPassAuthTest
                     .First(a => a.AuthenticationLogID == 1);
 
             authlog.UserAgent = "updated-agent"; 
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -82,7 +82,7 @@ namespace MyHealthPassAuthTest
                 UserAgent = useragent,
                 InsertDate = insertDate
             });
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
         }
     }
 }

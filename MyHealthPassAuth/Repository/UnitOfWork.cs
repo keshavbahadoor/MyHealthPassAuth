@@ -42,7 +42,7 @@ namespace MyHealthPassAuth.Repository
         /// <summary>
         /// Saves any changes made to domain models to persistence
         /// </summary>
-        public void Commit()
+        public void SaveChanges()
         {
             _dbContext.SaveChanges();
         }

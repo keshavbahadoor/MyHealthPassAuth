@@ -41,7 +41,7 @@ namespace MyHealthPassAuthTest
 
             location.Country = "United Kingdom";
             location.Region = "London";
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -65,7 +65,7 @@ namespace MyHealthPassAuthTest
                 Country = country,
                 Region = region
             });
-            unitOfWork.Commit();
+            unitOfWork.SaveChanges();
         }
     }
      
