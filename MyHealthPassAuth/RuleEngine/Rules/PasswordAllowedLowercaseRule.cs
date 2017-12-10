@@ -10,7 +10,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
 {
     public class PasswordAllowedLowercaseRule : AbstractRule
     { 
-        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig configs)
+        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig configs, User user)
         {
             if (configs.PasswordAllowedLowercaseCount > Regex.Matches(password, @"\p{Ll}").Count) 
             {

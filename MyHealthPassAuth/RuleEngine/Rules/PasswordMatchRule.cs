@@ -7,18 +7,11 @@ using MyHealthPassAuth.System;
 
 namespace MyHealthPassAuth.RuleEngine.Rules
 {
-    public class PasswordLengthMinRule : AbstractRule
+    public class PasswordMatchRule : AbstractRule
     {
         public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig configs, User user)
         {
-            if (password.Length < configs.PasswordLengthMin)
-            {
-                return new Message
-                {
-                    Result = MessageResult.ERROR,
-                    Text = "Password length is too short"
-                };
-            }
+             
             return _defaultSuccessMessage;
         }
     }

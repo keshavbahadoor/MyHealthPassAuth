@@ -30,6 +30,7 @@ namespace MyHealthPassAuthTest
         {
             this.inMemoryOptions = new DbContextOptionsBuilder<MainDbContext>()
                 .UseInMemoryDatabase(databaseName: "in_memory_db")
+                .EnableSensitiveDataLogging(true)
                 .Options;
 
             testDbContext = new MainDbContext(inMemoryOptions);

@@ -30,7 +30,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
         /// <param name="password"></param>
         /// <param name="configs"></param>
         /// <returns></returns>
-        public Message EvaluateRule(string username, string password, AuthorizationConfig configs)
+        public Message EvaluateRule(string username, string password, AuthorizationConfig configs, User user)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
                     };
                 }
 
-                return this.EvaluateRuleHook(username, password, configs);
+                return this.EvaluateRuleHook(username, password, configs, user);
             }
             catch(Exception ex)
             {
@@ -80,6 +80,6 @@ namespace MyHealthPassAuth.RuleEngine.Rules
         /// <param name="password"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        public abstract Message EvaluateRuleHook(string username, string password, AuthorizationConfig config);
+        public abstract Message EvaluateRuleHook(string username, string password, AuthorizationConfig config, User user);
     }
 }

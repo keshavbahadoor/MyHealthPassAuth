@@ -8,7 +8,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
 {
     public class AbstractRuleImpl : AbstractRule
     {
-        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig config)
+        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig config, User user)
         {
             return new Message
             {

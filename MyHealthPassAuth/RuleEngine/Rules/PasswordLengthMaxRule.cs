@@ -9,7 +9,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
 {
     public class PasswordLengthMaxRule : AbstractRule
     {
-        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig configs)
+        public override Message EvaluateRuleHook(string username, string password, AuthorizationConfig configs, User user)
         {
             if (password.Length > configs.PasswordLengthMax)
             {

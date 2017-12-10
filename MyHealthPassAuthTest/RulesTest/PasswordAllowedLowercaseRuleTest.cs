@@ -38,7 +38,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestNotEnoughLowercaseChars()
         {
             PasswordAllowedLowercaseRule rule = new PasswordAllowedLowercaseRule();
-            Message result = rule.EvaluateRule("keshav", "QWeTY123", config);
+            Message result = rule.EvaluateRule("keshav", "QWeTY123", config, null);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
             Assert.AreEqual("Password must contain 2 lowercase characters", result.Text);
@@ -48,7 +48,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestEnoughLowercaseChars()
         {
             PasswordAllowedLowercaseRule rule = new PasswordAllowedLowercaseRule();
-            Message result = rule.EvaluateRule("keshav", "abceQWERTY123", config);
+            Message result = rule.EvaluateRule("keshav", "abceQWERTY123", config, null);
 
             Assert.AreEqual(MessageResult.SUCCESS, result.Result);
         }

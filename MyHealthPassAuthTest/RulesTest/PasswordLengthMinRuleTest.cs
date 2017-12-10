@@ -38,7 +38,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestPasswordShorterThanMin()
         {
             PasswordLengthMinRule rule = new PasswordLengthMinRule();
-            Message result = rule.EvaluateRule("keshav", "123", config);
+            Message result = rule.EvaluateRule("keshav", "123", config, null);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
             Assert.AreEqual("Password length is too short", result.Text);
@@ -48,7 +48,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestPasswordEqualLength()
         {
             PasswordLengthMinRule rule = new PasswordLengthMinRule();
-            Message result = rule.EvaluateRule("keshav", "12345", config);
+            Message result = rule.EvaluateRule("keshav", "12345", config, null);
 
             Assert.AreEqual(MessageResult.SUCCESS, result.Result);
         }
@@ -57,7 +57,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestPasswordLongerThanMin()
         {
             PasswordLengthMinRule rule = new PasswordLengthMinRule();
-            Message result = rule.EvaluateRule("keshav", "qwerty1234", config);
+            Message result = rule.EvaluateRule("keshav", "qwerty1234", config, null);
 
             Assert.AreEqual(MessageResult.SUCCESS, result.Result);
         }
