@@ -10,24 +10,19 @@ using System.Collections.Generic;
 namespace MyHealthPassAuthTest
 {
     [TestClass]
-    public class ConfigServiceTest
+    public class ConfigServiceTest : AbstractRepositoryTest
     { 
         [TestInitialize]
         public void TestInitialize()
         {
-            DbContextOptions<MainDbContext> inMemoryOptions = new DbContextOptionsBuilder<MainDbContext>()
-               .UseInMemoryDatabase(databaseName: "in_memory_db_config")
-               .EnableSensitiveDataLogging(true) 
-               .Options;
-
-            ConfigService.Instance.Initialize(inMemoryOptions);
-            ConfigService.Instance.DbContext.Database.EnsureDeleted();
+            Initialize();
+            ConfigService.Instance.Initialize(this.testDbContext); 
         }
 
         [TestCleanup]
-        public void TearDown()
-        { 
-            ConfigService.Instance.DbContext.Database.EnsureDeleted();
+        public void TestTearDown()
+        {
+            TearDown();
         }
 
         [TestMethod]

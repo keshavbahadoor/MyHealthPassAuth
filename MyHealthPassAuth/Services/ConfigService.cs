@@ -63,12 +63,12 @@ namespace MyHealthPassAuth.Services
         }
 
         /// <summary>
-        /// Requires a database context options object for usage. 
+        /// Requires a database context object for usage. 
         /// </summary>
-        /// <param name="dbContextOptions"></param>
-        public void Initialize(DbContextOptions<MainDbContext> dbContextOptions)
+        /// <param name="databaseContextObject"></param>
+        public void Initialize(MainDbContext databaseContextObject)
         {
-            _dbContext = new MainDbContext(dbContextOptions);
+            _dbContext = databaseContextObject;
             _dbUnitOfWork = new UnitOfWork(_dbContext);
             LoadConfigurationList(); 
         }
