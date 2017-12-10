@@ -42,5 +42,22 @@ namespace MyHealthPassAuthTest
             Assert.AreEqual(0, user.FailedLoginAttempts);
             Assert.AreEqual(new DateTime(2017, 12, 9, 0, 0, 0), user.FailedLoginDateTime);
         }
+
+        [TestMethod]
+        public void TestFindUserByUsernameNull()
+        {
+            TestUtils.AddUserToRepository(DataService.Instance.DbContext,
+                1, "userOne", "123456", 0, 1, new DateTime(2017, 12, 9, 0, 0, 0));
+
+            TestUtils.AddUserToRepository(DataService.Instance.DbContext,
+                2, "userTwo", "qwerty", 0, 1, new DateTime(2017, 12, 9, 0, 0, 0));
+
+            TestUtils.AddUserToRepository(DataService.Instance.DbContext,
+                3, "userThree", "12326", 0, 1, new DateTime(2017, 12, 9, 0, 0, 0));
+
+            var user = DataService.Instance.FindUserByUsername("newUser");
+
+            Assert.IsNull(user); 
+        }
     }
 }
