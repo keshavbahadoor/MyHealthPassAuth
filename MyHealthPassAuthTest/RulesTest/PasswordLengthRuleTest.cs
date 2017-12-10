@@ -41,7 +41,7 @@ namespace MyHealthPassAuthTest.RulesTest
             Message result = rule.EvaluateRule("keshav", "1234567890awesows", config);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
-            Assert.AreEqual("Password length is too short", result.Text);
+            Assert.AreEqual("Password length is too long", result.Text);
         }
         
         [TestMethod]

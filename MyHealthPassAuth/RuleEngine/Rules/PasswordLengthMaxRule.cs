@@ -16,7 +16,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
                 return new Message
                 {
                     Result = MessageResult.ERROR, 
-                    Text = "Password length is too short"
+                    Text = "Password length is too long"
                 };
             }
             return _defaultSuccessMessage;
