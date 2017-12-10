@@ -103,6 +103,28 @@ namespace MyHealthPassAuth.Services
         }
 
         /// <summary>
+        /// Sets login attempts for user back to 0 
+        /// This is called on successful login
+        /// </summary>
+        /// <param name="user"></param>
+        public void ResetLoginAttempts(User user)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                user.FailedLoginAttempts = 0; 
+                _dbUnitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.              
+            }
+        }
+
+        /// <summary>
         /// Creates an auth log entry. 
         /// TODO : can be done asynchronously 
         /// </summary>
