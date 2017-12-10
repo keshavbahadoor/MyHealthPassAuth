@@ -9,23 +9,19 @@ using MyHealthPassAuth.Services;
 namespace MyHealthPassAuthTest
 {
     [TestClass]
-    public class DataServiceTest
+    public class DataServiceTest : AbstractRepositoryTest
     {
         [TestInitialize]
         public void TestInitialize()
         {
-            DbContextOptions<MainDbContext> inMemoryOptions = new DbContextOptionsBuilder<MainDbContext>()
-               .UseInMemoryDatabase(databaseName: "in_memory_db")
-               .Options;
-
-            DataService.Instance.Initialize(inMemoryOptions);
-            DataService.Instance.DbContext.Database.EnsureDeleted(); 
+            Initialize();
+            DataService.Instance.Initialize(this.testDbContext); 
         }
 
         [TestCleanup]
-        public void TearDown()
+        public void TestTearDown()
         {
-            DataService.Instance.DbContext.Database.EnsureDeleted();
+            TearDown();
         }
 
         [TestMethod]
