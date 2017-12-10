@@ -61,5 +61,24 @@ namespace MyHealthPassAuthTest
 
             Assert.IsNull(user); 
         }
+
+        [TestMethod]
+        public void TestIncrementUserFailedLoginAttempts()
+        {
+            TestUtils.AddUserToRepository(DataService.Instance.DbContext,
+                1, "userOne", "123456", 0, 1, new DateTime(2017, 12, 9, 0, 0, 0));
+
+            var user = DataService.Instance.FindUserByUsername("userOne");
+
+            // Increment 
+            DataService.Instance.IncrementUserFailedLoginAttempts(user);
+            DataService.Instance.IncrementUserFailedLoginAttempts(user); 
+
+            // Separate instance of context to verify data insert 
+            using (var context = new MainDbContext(inMemoryOptions))
+            { 
+                Assert.AreEqual(2, context.Users.Single().FailedLoginAttempts); 
+            }
+        }
     }
 }

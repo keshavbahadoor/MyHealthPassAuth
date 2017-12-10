@@ -80,5 +80,27 @@ namespace MyHealthPassAuth.Services
             }
         }
 
+        /// <summary>
+        /// Increments the supplied user's login attempts by 1 
+        /// </summary>
+        /// <param name="user"></param>
+        public void IncrementUserFailedLoginAttempts(User user)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                user.FailedLoginAttempts += 1;
+                user.FailedLoginDateTime = DateTime.Now; 
+                _dbUnitOfWork.SaveChanges(); 
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.              
+            }
+        }
+
     }
 }
