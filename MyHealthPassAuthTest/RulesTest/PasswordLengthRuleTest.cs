@@ -37,7 +37,7 @@ namespace MyHealthPassAuthTest.RulesTest
         [TestMethod]
         public void TestPasswordLongerThanLength()
         {
-            PasswordLengthRule rule = new PasswordLengthRule();
+            PasswordLengthMaxRule rule = new PasswordLengthMaxRule();
             Message result = rule.EvaluateRule("keshav", "1234567890awesows", config);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
@@ -47,7 +47,7 @@ namespace MyHealthPassAuthTest.RulesTest
         [TestMethod]
         public void TestPasswordEqualLength()
         {
-            PasswordLengthRule rule = new PasswordLengthRule();
+            PasswordLengthMaxRule rule = new PasswordLengthMaxRule();
             Message result = rule.EvaluateRule("keshav", "1234567890", config);
 
             Assert.AreEqual(MessageResult.SUCCESS, result.Result); 
@@ -56,7 +56,7 @@ namespace MyHealthPassAuthTest.RulesTest
         [TestMethod]
         public void TestPasswordShorterThanLength()
         {
-            PasswordLengthRule rule = new PasswordLengthRule();
+            PasswordLengthMaxRule rule = new PasswordLengthMaxRule();
             Message result = rule.EvaluateRule("keshav", "qwerty", config);
 
             Assert.AreEqual(MessageResult.SUCCESS, result.Result);
