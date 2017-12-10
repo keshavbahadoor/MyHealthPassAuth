@@ -39,7 +39,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestNullUsername()
         {
             AbstractRuleImpl rule = new AbstractRuleImpl();
-            Message result = rule.ApplyRule(null, "1234", config);
+            Message result = rule.EvaluateRule(null, "1234", config);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
             Assert.AreEqual("Error: username null", result.Text);
@@ -49,7 +49,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestNullPassword()
         {
             AbstractRuleImpl rule = new AbstractRuleImpl();
-            Message result = rule.ApplyRule("keshav", null, config);
+            Message result = rule.EvaluateRule("keshav", null, config);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
             Assert.AreEqual("Error: password null", result.Text);
@@ -59,7 +59,7 @@ namespace MyHealthPassAuthTest.RulesTest
         public void TestNullConfigs()
         {
             AbstractRuleImpl rule = new AbstractRuleImpl();
-            Message result = rule.ApplyRule("keshav", "1234", null);
+            Message result = rule.EvaluateRule("keshav", "1234", null);
 
             Assert.AreEqual(MessageResult.ERROR, result.Result);
             Assert.AreEqual("Error: configs null", result.Text);

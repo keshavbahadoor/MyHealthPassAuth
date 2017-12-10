@@ -17,6 +17,6 @@ namespace MyHealthPassAuth.RuleEngine.Interfaces
         /// <param name="password"></param>
         /// <param name="configs"></param>
         /// <returns></returns>
-        Message ApplyRule(string username, string password, AuthorizationConfig configs); 
+        Message EvaluateRule(string username, string password, AuthorizationConfig configs); 
     }
 }

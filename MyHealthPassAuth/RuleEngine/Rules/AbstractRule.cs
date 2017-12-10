@@ -30,7 +30,7 @@ namespace MyHealthPassAuth.RuleEngine.Rules
         /// <param name="password"></param>
         /// <param name="configs"></param>
         /// <returns></returns>
-        public Message ApplyRule(string username, string password, AuthorizationConfig configs)
+        public Message EvaluateRule(string username, string password, AuthorizationConfig configs)
         {
             try
             {
