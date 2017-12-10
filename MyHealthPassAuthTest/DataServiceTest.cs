@@ -22,6 +22,12 @@ namespace MyHealthPassAuthTest
             DataService.Instance.DbContext.Database.EnsureDeleted(); 
         }
 
+        [TestCleanup]
+        public void TearDown()
+        {
+            DataService.Instance.DbContext.Database.EnsureDeleted();
+        }
+
         [TestMethod]
         public void TestFindUserByUsername()
         {
