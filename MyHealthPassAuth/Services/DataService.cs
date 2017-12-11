@@ -152,7 +152,7 @@ namespace MyHealthPassAuth.Services
         /// <param name="ipAddress"></param>
         /// <param name="request"></param>
         /// <param name="userAgent"></param>
-        public void AddAuthenticationLog(string ipAddress, string request, string userAgent)
+        public void AddAuthenticationLog(string ipAddress, string request, string userAgent, string resultMessage)
         {
             try
             {
@@ -165,7 +165,8 @@ namespace MyHealthPassAuth.Services
                     IpAddress = ipAddress,
                     RequestData = request,
                     UserAgent = userAgent,
-                    InsertDate = DateTime.Now
+                    InsertDate = DateTime.Now,
+                    ResultMessage = resultMessage
                 });
                 _dbUnitOfWork.SaveChanges(); 
             }

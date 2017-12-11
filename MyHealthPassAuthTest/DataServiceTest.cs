@@ -121,7 +121,8 @@ namespace MyHealthPassAuthTest
             DataService.Instance.AddAuthenticationLog(
                 "192.161.1.1",
                 "logincall?username=something",
-                @"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36");
+                @"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36",
+                "success");
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -130,7 +131,8 @@ namespace MyHealthPassAuthTest
                 Assert.AreEqual("192.161.1.1", context.AuthenticationLogs.Single().IpAddress);
                 Assert.AreEqual("logincall?username=something", context.AuthenticationLogs.Single().RequestData);
                 Assert.AreEqual(@"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36",
-                    context.AuthenticationLogs.Single().UserAgent); 
+                    context.AuthenticationLogs.Single().UserAgent);
+                Assert.AreEqual("success", context.AuthenticationLogs.Single().ResultMessage);
             }
 
         }
