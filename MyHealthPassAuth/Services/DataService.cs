@@ -179,6 +179,49 @@ namespace MyHealthPassAuth.Services
         }
 
         /// <summary>
+        /// Creates an blacklist log entry or updates the FlagDate on an already 
+        /// existing entry.
+        /// TODO : can be done asynchronously 
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="request"></param>
+        /// <param name="userAgent"></param>
+        public void AddOrUpdateBlackListLog(string ipAddress, string userAgent)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+
+                var log = _dbUnitOfWork.BlackListLogRepository.Entities
+                    .Where(l => l.IpAddress.Equals(ipAddress))
+                    .Where(l => l.UserAgent.Equals(userAgent))
+                    .FirstOrDefault();
+
+                if (log != null)
+                {
+                    log.FlagDate = DateTime.Now; 
+                }
+                else
+                {
+                    _dbUnitOfWork.BlackListLogRepository.Add(new BlackListLog
+                    {
+                        IpAddress = ipAddress,
+                        UserAgent = userAgent,
+                        FlagDate = DateTime.Now
+                    });
+                }                
+                _dbUnitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.              
+            }
+        }
+
+        /// <summary>
         /// Returns the amount of failed logged request from the same client 
         /// over a period of specified seconds
         /// </summary>

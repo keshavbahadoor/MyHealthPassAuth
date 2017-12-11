@@ -137,6 +137,55 @@ namespace MyHealthPassAuthTest
         }
 
         [TestMethod]
+        public void TestAddBlackListLog()
+        {
+            DataService.Instance.AddOrUpdateBlackListLog(
+                "192.161.1.1",
+                "user.agent" );
+
+            // Separate instance of context to verify data insert 
+            using (var context = new MainDbContext(inMemoryOptions))
+            {
+                Assert.AreEqual(1, context.BlackListLogs.Count());
+                Assert.AreEqual("192.161.1.1", context.BlackListLogs.Single().IpAddress);
+                Assert.AreEqual("user.agent", context.BlackListLogs.Single().UserAgent); 
+            }
+        }
+
+        [TestMethod]
+        public void TestUpdateBlackListLog()
+        {
+            // Add record for 2 days in past 
+            var unitOfWork = new UnitOfWork(testDbContext);
+            unitOfWork.BlackListLogRepository.Add(new BlackListLog
+            {
+                BlackListID = 1,
+                IpAddress = "192.161.1.1",
+                UserAgent = "user.agent",
+                FlagDate = DateTime.Now.AddDays(-2)
+            });
+            unitOfWork.SaveChanges();
+
+            // Try adding via data service
+            DataService.Instance.AddOrUpdateBlackListLog(
+                "192.161.1.1",
+                "user.agent");
+
+            // Separate instance of context to verify data insert 
+            using (var context = new MainDbContext(inMemoryOptions))
+            {
+                Assert.AreEqual(1, context.BlackListLogs.Count());
+                Assert.AreEqual("192.161.1.1", context.BlackListLogs.Single().IpAddress);
+                Assert.AreEqual("user.agent", context.BlackListLogs.Single().UserAgent);
+
+                // Ensure its today
+                Assert.AreEqual(DateTime.Now.Day, context.BlackListLogs.Single().FlagDate.Value.Day);
+                Assert.AreEqual(DateTime.Now.Month, context.BlackListLogs.Single().FlagDate.Value.Month);
+                Assert.AreEqual(DateTime.Now.Year, context.BlackListLogs.Single().FlagDate.Value.Year);
+            }
+        }
+
+        [TestMethod]
         public void TestGetAuthLogsCorrect()
         {
             TestUtils.AddAuthenticationLog(testDbContext,
