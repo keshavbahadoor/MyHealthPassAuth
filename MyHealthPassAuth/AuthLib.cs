@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MyHealthPassAuth.Services;
 using MyHealthPassAuth.Repository;
 using MyHealthPassAuth.System.Interfaces;
+using MyHealthPassAuth.Security;
 
 namespace MyHealthPassAuth
 {
@@ -21,12 +22,16 @@ namespace MyHealthPassAuth
 
         private MainDbContext _mainDbContext;
 
+        private IPasswordCrypt _passwordCryptStrategy; 
+
         public AuthLib(DbContextOptions<MainDbContext> options)
         {
             _mainDbContext = new MainDbContext(options); 
 
             ConfigService.Instance.Initialize(_mainDbContext);
             DataService.Instance.Initialize(_mainDbContext);
+
+            _passwordCryptStrategy = new DummyCrypt(); 
         }
 
         public AuthLib(DbContextOptions<MainDbContext> options, ILog log)
@@ -43,12 +48,12 @@ namespace MyHealthPassAuth
 
         public string DecryptPassword(string password)
         {
-            throw new NotImplementedException();
+            return _passwordCryptStrategy.DecryptPassword(password);
         }
 
         public string EncryptPassword(string password)
         {
-            throw new NotImplementedException();
+            return _passwordCryptStrategy.EncryptPassword(password); 
         }
 
         public Message Login(string username, string password, string ipAddress, string userAgent, string requestData)
@@ -59,7 +64,7 @@ namespace MyHealthPassAuth
                 UserAgent = userAgent,
                 Request = requestData
             });
-            return handler.HandleLogin(username, password);
+            return handler.HandleLogin(username, _passwordCryptStrategy.EncryptPassword( password));
         }
     }
 }
