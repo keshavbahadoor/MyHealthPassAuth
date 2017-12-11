@@ -253,5 +253,34 @@ namespace MyHealthPassAuth.Services
             }
         }
 
+        /// <summary>
+        /// Checks if the client has been blackListed in the past n seconds. 
+        /// Returns true for blacklisted clients, false for otherwise. 
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="userAgent"></param>
+        /// <param name="pastSeconds"></param>
+        /// <returns></returns>
+        public bool IsClientBlackListedInTheListSeconds(string ipAddress, string userAgent, int pastSeconds)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                return _dbUnitOfWork.BlackListLogRepository.Entities
+                    .Where(a => a.IpAddress.Equals(ipAddress))
+                    .Where(a => a.UserAgent.Equals(userAgent)) 
+                    .Where(a => a.FlagDate > DateTime.Now.AddSeconds(-pastSeconds)) 
+                    .Count() > 0;
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.     
+                return false;
+            }
+        }
+
     }
 }

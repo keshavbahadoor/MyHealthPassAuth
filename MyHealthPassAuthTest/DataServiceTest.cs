@@ -300,5 +300,48 @@ namespace MyHealthPassAuthTest
 
             Assert.AreEqual(3, count);
         }
+
+
+        [TestMethod]
+        public void TestCheckClientBlackListSuccess()
+        {
+            var unitOfWork = new UnitOfWork(testDbContext);
+            unitOfWork.BlackListLogRepository.Add(new BlackListLog
+            {
+                BlackListID = 1,
+                IpAddress = "192.161.1.1",
+                UserAgent = "user.agent",
+                FlagDate = DateTime.Now.AddMinutes(-10)
+            });
+            unitOfWork.SaveChanges();
+
+            bool result = DataService.Instance.IsClientBlackListedInTheListSeconds(
+                "192.161.1.1", 
+                "user.agent",
+                1200);
+            
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestCheckClientBlackListPastFail()
+        {
+            var unitOfWork = new UnitOfWork(testDbContext);
+            unitOfWork.BlackListLogRepository.Add(new BlackListLog
+            {
+                BlackListID = 1,
+                IpAddress = "192.161.1.1",
+                UserAgent = "user.agent",
+                FlagDate = DateTime.Now.AddMinutes(-21)
+            });
+            unitOfWork.SaveChanges();
+
+            bool result = DataService.Instance.IsClientBlackListedInTheListSeconds(
+                "192.161.1.1",
+                "user.agent",
+                1200);
+
+            Assert.IsFalse(result);
+        }
     }
 }
