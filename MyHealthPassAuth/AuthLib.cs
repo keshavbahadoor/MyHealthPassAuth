@@ -17,15 +17,19 @@ namespace MyHealthPassAuth
     /// </summary>
     public class AuthLib : IAuthService
     {
-        private ILog Log; 
+        private ILog Log;
 
-        public AuthLib(MainDbContext options)
+        private MainDbContext _mainDbContext;
+
+        public AuthLib(DbContextOptions<MainDbContext> options)
         {
-            ConfigService.Instance.Initialize(options);
-            DataService.Instance.Initialize(options);
+            _mainDbContext = new MainDbContext(options); 
+
+            ConfigService.Instance.Initialize(_mainDbContext);
+            DataService.Instance.Initialize(_mainDbContext);
         }
 
-        public AuthLib(MainDbContext options, ILog log)
+        public AuthLib(DbContextOptions<MainDbContext> options, ILog log)
             :this(options)
         {
             this.Log = log; 
