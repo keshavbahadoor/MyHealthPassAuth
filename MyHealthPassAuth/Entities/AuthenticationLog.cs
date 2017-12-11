@@ -24,5 +24,8 @@ namespace MyHealthPassAuth.Entities
 
         [Column("insert_date")]
         public Nullable<DateTime> InsertDate { get; set; }
+
+        [Column("result_message")]
+        public string ResultMessage { get; set; }
     }
 }

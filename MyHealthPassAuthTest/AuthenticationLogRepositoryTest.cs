@@ -25,7 +25,8 @@ namespace MyHealthPassAuthTest
                 "192.161.1.1",
                 "logincall?username=something",
                 @"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36",
-                new DateTime(2017, 12, 9, 0, 0, 0));
+                new DateTime(2017, 12, 9, 0, 0, 0), 
+                "success");
 
             // Separate instance of context to verify data insert 
             using (var context = new MainDbContext(inMemoryOptions))
@@ -36,6 +37,7 @@ namespace MyHealthPassAuthTest
                 Assert.AreEqual(@"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36", 
                     context.AuthenticationLogs.Single().UserAgent);
                 Assert.AreEqual(new DateTime(2017, 12, 9, 0, 0, 0), context.AuthenticationLogs.Single().InsertDate);
+                Assert.AreEqual("success", context.AuthenticationLogs.Single().ResultMessage);
             }
         }
 
@@ -47,7 +49,8 @@ namespace MyHealthPassAuthTest
                 "192.161.1.1",
                 "logincall?username=something",
                 @"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36",
-                new DateTime(2017, 12, 9, 0, 0, 0));
+                new DateTime(2017, 12, 9, 0, 0, 0),
+                "success");
 
             var unitOfWork = new UnitOfWork(testDbContext);
             var authlog = unitOfWork.AuthLogRepository.Entities
@@ -64,6 +67,7 @@ namespace MyHealthPassAuthTest
                 Assert.AreEqual("logincall?username=something", context.AuthenticationLogs.Single().RequestData);
                 Assert.AreEqual(@"updated-agent", context.AuthenticationLogs.Single().UserAgent);
                 Assert.AreEqual(new DateTime(2017, 12, 9, 0, 0, 0), context.AuthenticationLogs.Single().InsertDate);
+                Assert.AreEqual("success", context.AuthenticationLogs.Single().ResultMessage);
             }
         }
 
