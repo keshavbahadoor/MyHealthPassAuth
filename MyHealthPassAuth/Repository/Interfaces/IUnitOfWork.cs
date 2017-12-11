@@ -15,6 +15,8 @@ namespace MyHealthPassAuth.Repository.Interfaces
 
         IRepository<AuthorizationConfig> AuthConfigRepository { get; }
 
+        IRepository<BlackListLog> BlackListLogRepository { get; }
+
         /// <summary>
         /// Saves all changes to persistence 
         /// </summary>

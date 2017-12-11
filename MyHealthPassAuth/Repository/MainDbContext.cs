@@ -29,6 +29,11 @@ namespace MyHealthPassAuth.Repository
         public virtual DbSet<AuthorizationConfig> AuthorizationConfig { get; set; }
 
         /// <summary>
+        /// Represents collection of Blacklist logs that stores unwanted clients
+        /// </summary>
+        public virtual DbSet<BlackListLog> BlackListLogs { get; set; }
+
+        /// <summary>
         /// Constructs a new context instance using the given options object.
         /// Multiple databases can be supported given the configurations passed 
         /// in the options object. 
