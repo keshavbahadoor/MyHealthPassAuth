@@ -1,5 +1,5 @@
 # MyHealthPassAuth
-![alt text](https://lh3.googleusercontent.com/LDXhzmtloQFfJR9MGLG7nNcvh-SOulqZdAXT2rpSMo9Urk5dl6qLnX1vQrQfy94NVbI8jXTT5xa0HdbpdmOg=w1920-h949)
+![img](https://image.ibb.co/nDcXKb/knight.jpg)
 Authentication and authorization library for MyHealthPass application
 
 ## Getting Started
