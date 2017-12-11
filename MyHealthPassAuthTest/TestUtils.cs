@@ -60,7 +60,8 @@ namespace MyHealthPassAuthTest
         /// Adds a specified location to the database using the given database context. 
         /// Data is committed 
         /// </summary>
-        public static void AddAuthenticationLog(MainDbContext context, int id, string ipAddress, string requestdata, string useragent, DateTime insertDate)
+        public static void AddAuthenticationLog(MainDbContext context, int id, string ipAddress, 
+            string requestdata, string useragent, DateTime insertDate, string resultMessage)
         {
             var unitOfWork = new UnitOfWork(context);
             unitOfWork.AuthLogRepository.Add(new AuthenticationLog
@@ -69,7 +70,8 @@ namespace MyHealthPassAuthTest
                 IpAddress = ipAddress,
                 RequestData = requestdata,
                 UserAgent = useragent,
-                InsertDate = insertDate
+                InsertDate = insertDate,
+                ResultMessage = resultMessage
             });
             unitOfWork.SaveChanges();
         }
