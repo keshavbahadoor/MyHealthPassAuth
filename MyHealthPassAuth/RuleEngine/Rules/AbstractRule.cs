@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using MyHealthPassAuth.Entities;
 using MyHealthPassAuth.System;
+using MyHealthPassAuth.System.Interfaces;
 
 namespace MyHealthPassAuth.RuleEngine.Rules
 {
@@ -20,6 +21,23 @@ namespace MyHealthPassAuth.RuleEngine.Rules
         public Message DefaultSuccessMessage
         {
             get { return _defaultSuccessMessage; }
+        }
+
+        protected ILog _log;
+        public ILog Log
+        {
+            get { return _log; }
+            set { _log = value; }
+        }
+
+        public AbstractRule()
+        {
+
+        }
+
+        public AbstractRule(ILog logger)
+        {
+            this._log = logger; 
         }
 
         /// <summary>
@@ -59,7 +77,9 @@ namespace MyHealthPassAuth.RuleEngine.Rules
                     };
                 }
 
-                return this.EvaluateRuleHook(username, password, configs, user);
+                Message message = this.EvaluateRuleHook(username, password, configs, user);
+                LogMessage(message); 
+                return message; 
             }
             catch(Exception ex)
             {
@@ -70,6 +90,18 @@ namespace MyHealthPassAuth.RuleEngine.Rules
                     Result = MessageResult.ERROR, 
                     Text = "Error: " + ex.Message
                 };
+            }
+        }
+
+        /// <summary>
+        /// Logs the message returned 
+        /// </summary>
+        /// <param name="message"></param>
+        private void LogMessage(Message message)
+        {
+            if (_log != null)
+            {
+                _log.LogMessage(this.GetType().Name + " : " + message.Text); 
             }
         }
 
