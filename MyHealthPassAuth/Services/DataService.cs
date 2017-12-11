@@ -11,6 +11,8 @@ namespace MyHealthPassAuth.Services
     /// <summary>
     /// General data service for the library. This can be refactored into smaller 
     /// components if required. Sticking to this design for now. 
+    /// TODO : Refactor into separate descrete services per model. I'm only doing everything inside 
+    ///        a generic DataService object to save time :( 
     /// </summary>
     public class DataService
     {
@@ -173,6 +175,38 @@ namespace MyHealthPassAuth.Services
             catch (Exception ex)
             {
                 // TODO: some logging would be nice.              
+            }
+        }
+
+        /// <summary>
+        /// Returns the amount of failed logged request from the same client 
+        /// over a period of specified seconds
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="request"></param>
+        /// <param name="userAgent"></param>
+        /// <param name="pastSeconds"></param>
+        /// <returns></returns>
+        public int GetAmountOfFailedAttemptsForLastSeconds(string ipAddress, string request, string userAgent, int pastSeconds)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                return _dbUnitOfWork.AuthLogRepository.Entities
+                    .Where(a => a.IpAddress.Equals(ipAddress))
+                    .Where(a => a.UserAgent.Equals(userAgent))
+                    .Where(a => a.RequestData.Equals(request))
+                    .Where(a => a.InsertDate > DateTime.Now.AddSeconds(-pastSeconds))
+                    .Where(a => ! a.ResultMessage.Contains("success"))
+                    .Count();
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.     
+                return 0; 
             }
         }
 

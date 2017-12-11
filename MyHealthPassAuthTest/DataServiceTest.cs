@@ -134,7 +134,122 @@ namespace MyHealthPassAuthTest
                     context.AuthenticationLogs.Single().UserAgent);
                 Assert.AreEqual("success", context.AuthenticationLogs.Single().ResultMessage);
             }
+        }
 
+        [TestMethod]
+        public void TestGetAuthLogsCorrect()
+        {
+            TestUtils.AddAuthenticationLog(testDbContext,
+                1,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-2),
+                "Error fail");
+
+            int count = DataService.Instance.GetAmountOfFailedAttemptsForLastSeconds(
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                600);
+
+            Assert.AreEqual(1, count);
+        }
+
+        [TestMethod]
+        public void TestGetAuthLogsIncorrectData()
+        {
+            TestUtils.AddAuthenticationLog(testDbContext,
+                1,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-2),
+                "Error fail");
+
+            int count = DataService.Instance.GetAmountOfFailedAttemptsForLastSeconds(
+                "192.161.1.1",
+                "other.request.data",
+                "my.user.agent",
+                600);
+
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public void TestGetAuthLogsTooLongAgo()
+        {
+            TestUtils.AddAuthenticationLog(testDbContext,
+                1,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-20),
+                "Error fail");
+
+            int count = DataService.Instance.GetAmountOfFailedAttemptsForLastSeconds(
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                600);
+
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public void TestGetAuthLogsSuccess()
+        {
+            TestUtils.AddAuthenticationLog(testDbContext,
+                1,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-2),
+                "success");
+
+            int count = DataService.Instance.GetAmountOfFailedAttemptsForLastSeconds(
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                600);
+
+            Assert.AreEqual(0, count);
+        }
+
+        [TestMethod]
+        public void TestGetAuthLogsMultiple()
+        {
+            TestUtils.AddAuthenticationLog(testDbContext,
+                1,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-2),
+                "Error fail");
+
+            TestUtils.AddAuthenticationLog(testDbContext,
+                2,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-3),
+                "Error fail");
+
+            TestUtils.AddAuthenticationLog(testDbContext,
+                3,
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                DateTime.Now.AddMinutes(-4),
+                "Error fail");
+
+            int count = DataService.Instance.GetAmountOfFailedAttemptsForLastSeconds(
+                "192.161.1.1",
+                "my.request.data",
+                "my.user.agent",
+                600);
+
+            Assert.AreEqual(3, count);
         }
     }
 }
