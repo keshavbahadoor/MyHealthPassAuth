@@ -35,7 +35,7 @@ namespace MyHealthPassAuthExampleInMemoryDb
                 PasswordAllowedDigitCount = 1,
                 PasswordAllowedSpecialCharCount = 1,
                 LoginAccountLockAttempts = 3,
-                BruteForceBlockAttempts = 13,
+                BruteForceBlockAttempts = 8,
                 BruteForceIdentificationSeconds = 600,
                 BruteForceBlockSeconds = 600,
                 LocationID = 1

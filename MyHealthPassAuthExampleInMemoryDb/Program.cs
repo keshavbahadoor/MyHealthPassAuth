@@ -35,6 +35,23 @@ namespace MyHealthPassAuthExampleInMemoryDb
             message = app.Login("keshav", "password", "useragent", "login", "requestdata");
             Console.WriteLine("Returned Message: " + message.Text);
 
+            // locked account 
+            for (int i=0; i< 5; i++ )
+            {
+                Console.WriteLine();
+                message = app.Login("keshav", "p2323", "useragent", "login", "requestdata");
+                Console.WriteLine("Returned Message: " + message.Text);
+            }
+
+            // Brute Blocked attempt
+            for (int i = 0; i < 12; i++)
+            {
+                Console.WriteLine();
+                message = app.Login("hacker", "12345", "useragent2", "login", "requestdata2");
+                Console.WriteLine("Returned Message: " + message.Text);
+            }
+             
+
             Console.WriteLine();
             Console.WriteLine("Done!");
             Console.ReadLine();
