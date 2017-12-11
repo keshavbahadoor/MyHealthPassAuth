@@ -40,6 +40,8 @@ namespace MyHealthPassAuthTest.RulesTest
         [TestMethod]
         public void TestUserDoesNotExist()
         {
+            TestUtils.AddAuthConfig(testDbContext, 1, 10, 5, 1, 1, 1, 1, 10000, 3, 13, 600, 1200, 1);
+            ConfigService.Instance.LoadConfigurationList();
             TestUtils.AddUserToRepository(testDbContext,
                 1,
                 "test.user",

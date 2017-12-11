@@ -51,6 +51,7 @@ namespace MyHealthPassAuth.RuleEngine
 
             _loginRules.Add(new CheckBlackListRule(requestData));
             _loginRules.Add(new BruteForceIdentificationRule(requestData));
+            _loginRules.Add(new UserDoesNotExistRule());
             _loginRules.Add(new UserAccountLockRule());
             _loginRules.Add(new PasswordMatchRule());           
         }
@@ -106,12 +107,11 @@ namespace MyHealthPassAuth.RuleEngine
             {
                 User user = DataService.Instance.FindUserByUsername(username); 
                 if (user == null)
-                {
-                    return new Message
+                { 
+                    user = new User
                     {
-                        Result = MessageResult.ERROR, 
-                        Text = "User does not exist"
-                    };
+                        LocationID = 1
+                    }; 
                 }
                 AuthorizationConfig config = ConfigService.Instance.GetConfigForLocationID(user.LocationID);
                 Message message = EvaluateRules(_loginRules, username, password, config, user); 
