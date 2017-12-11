@@ -125,6 +125,27 @@ namespace MyHealthPassAuth.Services
         }
 
         /// <summary>
+        /// Locks the user account 
+        /// </summary>
+        /// <param name="user"></param>
+        public void LockUserAccount(User user)
+        {
+            try
+            {
+                if (_dbContext == null)
+                {
+                    throw new Exception("Database context not initialized");
+                }
+                user.AccountLocked = (int)AccountLockedEnum.LOCKED;
+                _dbUnitOfWork.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // TODO: some logging would be nice.              
+            }
+        }
+
+        /// <summary>
         /// Creates an auth log entry. 
         /// TODO : can be done asynchronously 
         /// </summary>

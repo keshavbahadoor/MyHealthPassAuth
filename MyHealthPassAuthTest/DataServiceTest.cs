@@ -99,6 +99,23 @@ namespace MyHealthPassAuthTest
         }
 
         [TestMethod]
+        public void TestLockUserAccount()
+        {
+            TestUtils.AddUserToRepository(DataService.Instance.DbContext,
+                1, "userOne", "123456", 2, 1, new DateTime(2017, 12, 9, 0, 0, 0));
+
+            var user = DataService.Instance.FindUserByUsername("userOne");
+
+            DataService.Instance.LockUserAccount(user);
+
+            // Separate instance of context to verify data insert 
+            using (var context = new MainDbContext(inMemoryOptions))
+            {
+                Assert.AreEqual((int)AccountLockedEnum.LOCKED, context.Users.Single().AccountLocked);
+            }
+        }
+
+        [TestMethod]
         public void TestAddAuthenticationLog()
         {
             DataService.Instance.AddAuthenticationLog(
