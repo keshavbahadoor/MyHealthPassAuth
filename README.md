@@ -1,5 +1,5 @@
 # MyHealthPassAuth
-![alt text](https://lh3.googleusercontent.com/LDXhzmtloQFfJR9MGLG7nNcvh-SOulqZdAXT2rpSMo9Urk5dl6qLnX1vQrQfy94NVbI8jXTT5xa0HdbpdmOg=w1920-h949)
+![img](https://image.ibb.co/nDcXKb/knight.jpg)
 Authentication and authorization library for MyHealthPass application
 
 ## Getting Started
@@ -31,7 +31,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Running Example Usage Project 
 
-* Ensure that data is imported into desired database 
+* Ensure that data is imported into desired database. This can be done by creating a new database in MySQL and running the included .sql script. 
+* Ensure that the connection string is accurate. The library is designed to accept a DbContextOptions object that holds the connection string to supported EF Core data stores (Microsoft SQL Server, MySQL, Postgres, etc.) 
 * Set the _MyHealthPassAuthExample_ project as the startup project. 
 * Run example usage project. 
 
