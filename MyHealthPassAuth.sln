@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealthPassAuthTest", "MyH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealthPassAuthExample", "MyHealthPassAuthExample\MyHealthPassAuthExample.csproj", "{1A72200A-D322-4882-90F5-717ABFBEB156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealthPassAuthExampleInMemoryDb", "MyHealthPassAuthExampleInMemoryDb\MyHealthPassAuthExampleInMemoryDb.csproj", "{CAF63BE5-AB8D-4CED-8DE9-D03B9231E2C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealthPassAuthExampleInMemoryDb", "MyHealthPassAuthExampleInMemoryDb\MyHealthPassAuthExampleInMemoryDb.csproj", "{CAF63BE5-AB8D-4CED-8DE9-D03B9231E2C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MySQLScript", "MySQLScript", "{18D583EC-AE5B-460E-A128-2A9A9D18CB9F}"
+	ProjectSection(SolutionItems) = preProject
+		my_health_pass_auth.sql = my_health_pass_auth.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
