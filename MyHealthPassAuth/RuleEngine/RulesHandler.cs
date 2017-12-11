@@ -45,7 +45,9 @@ namespace MyHealthPassAuth.RuleEngine
         /// </summary>
         private void CompileRules()
         {
+            _passwordCheckRules.Add(new PasswordLengthMinRule());
             _passwordCheckRules.Add(new PasswordLengthMaxRule());
+            _passwordCheckRules.Add(new PasswordAllowedLowercaseRule());            
 
             _loginRules.Add(new CheckBlackListRule(requestData));
             _loginRules.Add(new BruteForceIdentificationRule(requestData));
